@@ -18,12 +18,11 @@ import java.util.Optional;
 public class PostgresUserRepository implements UserRepository {
 
   private final SpringDataUserRepository springDataUserRepository;
-  private final UserMapper userMapper;
 
   @Override
   public boolean addUser(User user) {
     log.debug("Adding user with email: {}", user.contact().email());
-    final var userEntity = userMapper.mapFromDomainToEntity(user);
+    final var userEntity = UserMapper.INSTANCE.mapFromDomainToEntity(user);
     springDataUserRepository.save(userEntity);
     return true;
   }
@@ -32,14 +31,14 @@ public class PostgresUserRepository implements UserRepository {
   public Optional<User> findUserByEmail(String email) {
     log.debug("Finding user with email: {}", email);
     return springDataUserRepository.findByEmail(email)
-        .map(userMapper::mapFromEntityToDomain);
+        .map(UserMapper.INSTANCE::mapFromEntityToDomain);
   }
 
   @Override
   public List<User> findUserByName(String name) {
     log.debug("Finding users with name containing: {}", name);
     return springDataUserRepository.findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(name, name).stream()
-        .map(userMapper::mapFromEntityToDomain)
+        .map(UserMapper.INSTANCE::mapFromEntityToDomain)
         .toList();
   }
 
@@ -58,7 +57,7 @@ public class PostgresUserRepository implements UserRepository {
   public List<User> getAllUsers() {
     log.debug("Retrieving all users from the database");
     return springDataUserRepository.findAll().stream()
-        .map(userMapper::mapFromEntityToDomain)
+        .map(UserMapper.INSTANCE::mapFromEntityToDomain)
         .toList();
   }
 }
