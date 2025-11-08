@@ -16,6 +16,7 @@ java {
 
 ext {
     set('commonsLang', '3.13.0')
+    set('springDocVersion', '2.8.5')
 }
 
 configurations {
@@ -35,6 +36,9 @@ dependencies {
     // Commons
     implementation "org.apache.commons:commons-lang3:$commonsLang"
     implementation 'org.mapstruct:mapstruct:1.6.3'
+
+    // OpenAPI Documentation
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocVersion"
 
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.postgresql:postgresql'
