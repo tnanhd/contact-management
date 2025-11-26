@@ -1,7 +1,7 @@
 package com.example.contact.adapter.out.persistence.inmemory;
 
 import com.example.contact.domain.models.User;
-import com.example.contact.domain.port.out.UserRepository;
+import com.example.contact.domain.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;

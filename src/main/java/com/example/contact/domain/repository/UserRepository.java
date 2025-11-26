@@ -1,4 +1,4 @@
-package com.example.contact.domain.port.out;
+package com.example.contact.domain.repository;
 
 import com.example.contact.domain.models.User;
 
