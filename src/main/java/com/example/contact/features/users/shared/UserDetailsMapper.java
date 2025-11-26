@@ -1,6 +1,5 @@
-package com.example.contact.adapter.in.rest.user.mapper;
+package com.example.contact.features.users.shared;
 
-import com.example.contact.adapter.in.rest.user.dto.response.UserDetails;
 import com.example.contact.domain.models.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

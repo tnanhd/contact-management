@@ -1,4 +1,4 @@
-package com.example.contact.adapter.in.rest.ping;
+package com.example.contact.features.ping;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;

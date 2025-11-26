@@ -1,7 +1,7 @@
 package com.example.contact.domain.models;
 
-import io.micrometer.common.util.StringUtils;
 import lombok.Builder;
+import org.apache.commons.lang3.StringUtils;
 
 @Builder
 public record User(UserId id, Name name, Contact contact, Address address) {

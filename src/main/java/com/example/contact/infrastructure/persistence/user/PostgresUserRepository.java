@@ -1,4 +1,4 @@
-package com.example.contact.adapter.out.persistence.postgres.user;
+package com.example.contact.infrastructure.persistence.user;
 
 import com.example.contact.domain.models.User;
 import com.example.contact.domain.repository.UserRepository;
@@ -19,11 +19,11 @@ public class PostgresUserRepository implements UserRepository {
   private final SpringDataUserRepository springDataUserRepository;
 
   @Override
-  public boolean addUser(User user) {
+  public User addUser(User user) {
     log.debug("Adding user with email: {}", user.contact().email());
     final var userEntity = UserMapper.INSTANCE.mapFromDomainToEntity(user);
-    springDataUserRepository.save(userEntity);
-    return true;
+    final var savedInstance = springDataUserRepository.save(userEntity);
+    return UserMapper.INSTANCE.mapFromEntityToDomain(savedInstance);
   }
 
   @Override

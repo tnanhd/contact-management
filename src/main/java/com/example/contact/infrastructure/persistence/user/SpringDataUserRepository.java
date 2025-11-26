@@ -1,4 +1,4 @@
-package com.example.contact.adapter.out.persistence.postgres.user;
+package com.example.contact.infrastructure.persistence.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,4 +1,4 @@
-package com.example.contact.adapter.out.persistence.postgres.user;
+package com.example.contact.infrastructure.persistence.user;
 
 import com.example.contact.domain.models.User;
 import org.mapstruct.Mapper;

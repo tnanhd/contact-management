@@ -1,4 +1,4 @@
-package com.example.contact.adapter.out.persistence.inmemory;
+package com.example.contact.infrastructure.persistence.inmemory;
 
 import com.example.contact.domain.models.User;
 import com.example.contact.domain.repository.UserRepository;
@@ -14,15 +14,15 @@ import java.util.Optional;
 public class InMemoryUserRepository implements UserRepository {
   private List<User> users;
 
-  public boolean addUser(User user) {
+  public User addUser(User user) {
     log.debug("Adding user: {}", user);
     if (!user.name().isValidName() || !user.contact().isValidContact()) {
       log.debug("User data is invalid: {}", user);
-      return false;
+      return null;
     }
 
     users.add(user);
-    return true;
+    return user;
   }
 
   public Optional<User> findUserByEmail(String email) {

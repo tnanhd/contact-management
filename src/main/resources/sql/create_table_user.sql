@@ -9,5 +9,5 @@ CREATE TABLE IF NOT EXISTS users (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO users (id, first_name, last_name, email, phone_number, zip_code) VALUES
-(1, 'John', 'Doe', 'john.doe@gmail.com', '123-456-7890', '10001'),
+INSERT INTO users (first_name, last_name, email, phone_number, zip_code) VALUES
+('John', 'Doe', 'john.doe@gmail.com', '123-456-7890', '10001'),

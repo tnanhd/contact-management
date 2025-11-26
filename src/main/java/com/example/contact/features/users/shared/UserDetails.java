@@ -1,4 +1,4 @@
-package com.example.contact.adapter.in.rest.user.dto.response;
+package com.example.contact.features.users.shared;
 
 import lombok.Builder;
 
