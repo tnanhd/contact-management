@@ -16,22 +16,17 @@ public class InMemoryUserRepository implements UserRepository {
 
   public User addUser(User user) {
     log.debug("Adding user: {}", user);
-    if (!user.name().isValidName() || !user.contact().isValidContact()) {
-      log.debug("User data is invalid: {}", user);
-      return null;
-    }
-
     users.add(user);
     return user;
   }
 
   public Optional<User> findUserByEmail(String email) {
-    log.debug("Finding user by email: {}", email);
-    return users.stream().filter(user -> user.contact().email().equals(email)).findFirst();
+    log.debug("Finding user by email: [{}]", email);
+    return users.stream().filter(user -> user.email().equals(email)).findFirst();
   }
 
   public boolean removeUserByEmail(String email) {
-    log.debug("Removing user by email: {}", email);
+    log.debug("Removing user by email: [{}]", email);
     final var user = findUserByEmail(email);
     if (user.isPresent()) {
       users.remove(user.get());
@@ -41,12 +36,12 @@ public class InMemoryUserRepository implements UserRepository {
   }
 
   public List<User> findUserByName(String name) {
-    log.debug("Finding user by name containing: {}", name);
+    log.debug("Finding user by name containing: [{}]", name);
     if (StringUtils.isEmpty(name)) {
       return List.of();
     }
     return users.stream()
-        .filter(user -> user.name().getFullName().toLowerCase().contains(name.toLowerCase()))
+        .filter(user -> user.getFullName().toLowerCase().contains(name.toLowerCase()))
         .toList();
   }
 

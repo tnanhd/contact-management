@@ -20,7 +20,7 @@ public class PostgresUserRepository implements UserRepository {
 
   @Override
   public User addUser(User user) {
-    log.debug("Adding user with email: {}", user.contact().email());
+    log.debug("Adding user: email=[{}]", user.email());
     final var userEntity = UserMapper.INSTANCE.mapFromDomainToEntity(user);
     final var savedInstance = springDataUserRepository.save(userEntity);
     return UserMapper.INSTANCE.mapFromEntityToDomain(savedInstance);
@@ -28,22 +28,25 @@ public class PostgresUserRepository implements UserRepository {
 
   @Override
   public Optional<User> findUserByEmail(String email) {
-    log.debug("Finding user with email: {}", email);
-    return springDataUserRepository.findByEmail(email)
+    log.debug("Finding user: email=[{}]", email);
+    return springDataUserRepository
+        .findByEmail(email)
         .map(UserMapper.INSTANCE::mapFromEntityToDomain);
   }
 
   @Override
   public List<User> findUserByName(String name) {
-    log.debug("Finding users with name containing: {}", name);
-    return springDataUserRepository.findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(name, name).stream()
+    log.debug("Finding users by name: key=[{}]", name);
+    return springDataUserRepository
+        .findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(name, name)
+        .stream()
         .map(UserMapper.INSTANCE::mapFromEntityToDomain)
         .toList();
   }
 
   @Override
   public boolean removeUserByEmail(String email) {
-    log.debug("Removing user with email: {}", email);
+    log.debug("Removing user: email=[{}]", email);
     final var userEntity = springDataUserRepository.findByEmail(email);
     if (userEntity.isPresent()) {
       springDataUserRepository.delete(userEntity.get());

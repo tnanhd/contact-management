@@ -1,5 +1,6 @@
 package com.example.contact.domain.usecase.user;
 
+import com.example.contact.domain.exception.EmailAlreadyExistsException;
 import com.example.contact.domain.models.User;
 import com.example.contact.domain.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -8,24 +9,17 @@ import lombok.extern.slf4j.Slf4j;
 public record CreateUserUseCase(UserRepository userRepository) {
 
   public User execute(User user) {
-    if (validateUser(user)) {
-      return userRepository.addUser(user);
-    } else {
+    log.debug("Executing CreateUserUseCase for user: [{}]", user);
+    if (!user.isValidForCreation()) {
+      log.info("User data is invalid for creation: [{}]", user.getSafeToPrintUserData());
       throw new IllegalArgumentException("Invalid user data");
     }
-  }
 
-  private boolean validateUser(User user) {
-    if (!user.name().isValidName()) {
-      log.info("Invalid user name: {}", user.name().getFullName());
-      return false;
+    if (userRepository.existsByEmail(user.email())) {
+      log.info("User with email [{}] already exists", user.email());
+      throw new EmailAlreadyExistsException(user.email());
     }
 
-    if (!user.contact().isValidContact()) {
-      log.info("Invalid user contact: {}", user.contact());
-      return false;
-    }
-
-    return true;
+    return userRepository.addUser(user);
   }
 }

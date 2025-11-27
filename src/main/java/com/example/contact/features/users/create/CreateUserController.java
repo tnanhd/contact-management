@@ -2,6 +2,7 @@ package com.example.contact.features.users.create;
 
 import com.example.contact.features.users.shared.UserDetails;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +19,7 @@ public class CreateUserController {
   private final CreateUserHandler createUserHandler;
 
   @PostMapping
-  public ResponseEntity<UserDetails> createUser(@RequestBody CreateUserRequest request) {
+  public ResponseEntity<UserDetails> createUser(@Valid @RequestBody CreateUserRequest request) {
     return ResponseEntity.ok(createUserHandler.handle(request));
   }
 }

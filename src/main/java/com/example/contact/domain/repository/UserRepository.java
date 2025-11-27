@@ -15,4 +15,8 @@ public interface UserRepository {
   boolean removeUserByEmail(String email);
 
   List<User> getAllUsers();
+
+  default boolean existsByEmail(String email) {
+    return findUserByEmail(email).isPresent();
+  }
 }

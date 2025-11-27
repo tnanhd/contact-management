@@ -14,11 +14,14 @@ public class CreateUserHandler {
   private final CreateUserUseCase createUserUseCase;
 
   public UserDetails handle(CreateUserRequest request) {
-    final var user = User.builder()
-        .name(new User.Name(request.firstName(), request.lastName()))
-        .contact(new User.Contact(request.email(), request.phoneNumber()))
-        .address(new User.Address(request.zipCode()))
-        .build();
+    final var user =
+        User.builder()
+            .firstName(request.firstName())
+            .lastName(request.lastName())
+            .email(request.email())
+            .phoneNumber(request.phoneNumber())
+            .zipCode(request.zipCode())
+            .build();
     final var createdUser = createUserUseCase.execute(user);
     return UserDetailsMapper.INSTANCE.mapFromDomainToUserDetails(createdUser);
   }
